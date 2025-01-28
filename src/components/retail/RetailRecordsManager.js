@@ -57,7 +57,7 @@ const RetailRecordsManager = ({ isExpanded }) => {
       end.setHours(23, 59, 59, 999);
       
       // Create URL with proper date range
-      const url = new URL('https://apii-iviq.onrender.com/api/retail-records');
+      const url = new URL('https://apii-iviq.onrender.com/api/retail-records?');
       const params = new URLSearchParams({
         startDate: start.toISOString(),
         endDate: end.toISOString()

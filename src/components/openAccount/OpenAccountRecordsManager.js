@@ -78,7 +78,7 @@ const OpenAccountRecordsManager = ({ isExpanded }) => {
 
     setLoading(true);
     try {
-      let url = 'https://apii-iviq.onrender.com/api/open-account-records';
+      let url = 'https://apii-iviq.onrender.com/api/open-account-records?';
       const params = new URLSearchParams();
       
       if (startDate) params.append('startDate', startDate);
@@ -201,7 +201,7 @@ const OpenAccountRecordsManager = ({ isExpanded }) => {
     try {
       const today = new Date().toISOString().split('T')[0];
       const response = await fetch(
-        `https://apii-iviq.onrender.com/api/open-account-records`
+        `https://apii-iviq.onrender.com/api/open-account-records?`
       );
       if (!response.ok) throw new Error('Failed to fetch records');
       const data = await response.json();
@@ -227,7 +227,7 @@ const OpenAccountRecordsManager = ({ isExpanded }) => {
     try {
       const today = new Date().toISOString().split('T')[0];
       const response = await fetch(
-        `https://apii-iviq.onrender.com/api/open-account-records`
+        `https://apii-iviq.onrender.com/api/open-account-records?`
       );
       if (!response.ok) throw new Error('Failed to fetch records');
       const data = await response.json();
