@@ -93,7 +93,7 @@ const BarcodeScanner = ({ onScan, onClose }) => {
             const productData = JSON.parse(decodedString);
             console.log('Decoded product:', productData); // For debugging
             
-            onScan({ data: JSON.stringify(productData) });
+            onScan(productData);
             clearInterval(interval);
           } catch (error) {
             console.error('Error decoding QR:', error);

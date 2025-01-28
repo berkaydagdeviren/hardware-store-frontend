@@ -64,6 +64,7 @@ const RetailView = () => {
       throw error;
     }
   };
+  
 
   const addProduct = (product, quantity = 1) => {
     setSelectedProducts(prev => {
@@ -93,25 +94,23 @@ const RetailView = () => {
   };
 
 
-  const handleScan = (result) => {
+  const handleScan = (productData) => {
     try {
-      // Decode the base64 QR data
-      const decodedString = b64_to_utf8(result.data);
-      console.log('Decoded string:', decodedString); // For debugging
-      
-      // Parse the JSON data
-      const productData = JSON.parse(decodedString);
-      console.log('Product data:', productData); // For debugging
+      // Use your existing addProduct function with the scanned data
+      addProduct({
+        _id: productData._id,
+        name: productData.name,
+        code: productData.code,
+        price: productData.price,
+        price2: productData.price2,
+        KDV_ORANI: productData.KDV_ORANI
+      });
   
       // Close scanner
       setShowScanner(false);
-      
-      // Add the scanned product using your existing addProduct function
-      addProduct(productData);
-      
     } catch (error) {
-      console.error('Error processing scanned data:', error);
-      alert('Invalid QR code or scanning error');
+      console.error('Error adding scanned product:', error);
+      alert('Ürün eklenirken bir hata oluştu');
     }
   };
   const removeProduct = (productId) => {
@@ -351,10 +350,14 @@ const RetailView = () => {
       </div>
 
       {showScanner && (
-        <BarcodeScanner 
-        onScan={handleScan}
-        onClose={() => setShowScanner(false)} 
-      />
+        <BarcodeScanner
+          onScan={(productData) => {
+            // Handle barcode scan
+            handleScan(productData);
+            setShowScanner(false);
+          }}
+          onClose={() => setShowScanner(false)}
+        />
       )}
     </div>
   );

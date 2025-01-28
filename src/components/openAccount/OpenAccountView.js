@@ -138,7 +138,25 @@ const OpenAccountView = () => {
       console.error('Error checking existing record:', error);
     }
   };
-
+  const handleScan = (productData) => {
+    try {
+      // Use your existing addProduct function with the scanned data
+      addProduct({
+        _id: productData._id,
+        name: productData.name,
+        code: productData.code,
+        price: productData.price,
+        price2: productData.price2,
+        KDV_ORANI: productData.KDV_ORANI
+      });
+  
+      // Close scanner
+      setShowScanner(false);
+    } catch (error) {
+      console.error('Error adding scanned product:', error);
+      alert('Ürün eklenirken bir hata oluştu');
+    }
+  };
   const addProduct = (product, quantity = 1) => {
     setSelectedProducts(prev => {
       const existing = prev.find(p => p._id === product._id);
@@ -413,8 +431,9 @@ const OpenAccountView = () => {
       </div>
       {showScanner && (
         <BarcodeScanner
-          onScan={(barcode) => {
+          onScan={(productData) => {
             // Handle barcode scan
+            handleScan(productData);
             setShowScanner(false);
           }}
           onClose={() => setShowScanner(false)}
